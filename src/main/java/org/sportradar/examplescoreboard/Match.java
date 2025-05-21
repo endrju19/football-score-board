@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class Match {
   private final UUID id;
-  private final Score score;
   private final Team home, away;
   private final Instant startedAt;
+  private Score score;
 
   public Match(Team home, Team away) {
     this(home, away, Instant.now());
@@ -33,4 +33,7 @@ public class Match {
     return id;
   }
 
+  public void updateScore(Score score) {
+    this.score = new Score(score.home(), score.away());
+  }
 }
