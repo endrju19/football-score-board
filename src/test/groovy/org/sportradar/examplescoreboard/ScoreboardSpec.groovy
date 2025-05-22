@@ -81,6 +81,19 @@ class ScoreboardSpec extends Specification {
     ]
   }
 
+  def "Should throw exception when adding match with existing ID"() {
+    given:
+    def scoreboard = new Scoreboard()
+    def match = new Match(aTeam("Poland"), aTeam("Germany"))
+    scoreboard.startNew(match)
+
+    when:
+    scoreboard.startNew(match)
+
+    then:
+    thrown(IllegalArgumentException)
+  }
+
   Team aTeam(String name) {
     return new Team(name)
   }

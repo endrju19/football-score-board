@@ -14,7 +14,7 @@ public class Scoreboard {
   private final List<Match> matches = new ArrayList<>();
 
   public void startNew(Match match) {
-    //todo add test case and validation for adding Match with the same id
+    validateMatch(match);
     matches.add(match);
   }
 
@@ -32,5 +32,18 @@ public class Scoreboard {
 
   public void finish(Match match) {
    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  private void validateMatch(Match match) {
+    if (match == null) {
+      throw new IllegalArgumentException("Match cannot be null");
+    }
+
+    boolean isDuplicateMatch = matches.stream()
+      .anyMatch(existingMatch -> existingMatch.getId().equals(match.getId()));
+
+    if (isDuplicateMatch) {
+      throw new IllegalArgumentException("Match with ID " + match.getId() + " already exists");
+    }
   }
 }
