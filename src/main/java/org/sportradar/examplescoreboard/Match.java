@@ -1,6 +1,7 @@
 package org.sportradar.examplescoreboard;
 
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Match {
@@ -14,6 +15,9 @@ public class Match {
   }
 
   public Match(Team home, Team away, Instant startedAt) {
+    Objects.requireNonNull(home, "Home team cannot be null");
+    Objects.requireNonNull(away, "Away team cannot be null");
+    Objects.requireNonNull(startedAt, "Start time cannot be null");
     this.home = home;
     this.away = away;
     this.score = new Score(0, 0);
@@ -39,5 +43,10 @@ public class Match {
     }
 
     this.score = new Score(score.home(), score.away());
+  }
+
+  @Override
+  public String toString() {
+    return String.format("%s %d - %s %d", home, score.home(), away, score.away());
   }
 }

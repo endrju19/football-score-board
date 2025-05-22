@@ -30,8 +30,10 @@ public class Scoreboard {
       .findAny().orElseThrow(NoSuchElementException::new).updateScore(score);
   }
 
-  public void finish(Match match) {
-   throw new UnsupportedOperationException("Not supported yet.");
+  public void finish(UUID matchId) {
+    if (!matches.removeIf(match -> match.getId().equals(matchId))) {
+      throw new NoSuchElementException();
+    }
   }
 
   private void validateMatch(Match match) {
