@@ -34,6 +34,10 @@ public class Match {
   }
 
   public void updateScore(Score score) {
+    if (score.home() < this.score.home() || score.away() < this.score.away()) {
+      throw new IllegalArgumentException("Score cannot be decreased");
+    }
+
     this.score = new Score(score.home(), score.away());
   }
 }

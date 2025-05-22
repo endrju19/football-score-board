@@ -94,6 +94,31 @@ class ScoreboardSpec extends Specification {
     thrown(IllegalArgumentException)
   }
 
+  def "Should throw exception when updating score for non-existing match"() {
+    given:
+    def scoreboard = new Scoreboard()
+    def nonExistingId = UUID.randomUUID()
+
+    when:
+    scoreboard.updateScore(nonExistingId, new Score(1, 1))
+
+    then:
+    thrown(NoSuchElementException)
+  }
+
+  def "Should throw exception when updating score with negative values"() {
+    given:
+    def scoreboard = new Scoreboard()
+    def match = new Match(aTeam("Poland"), aTeam("Germany"))
+    scoreboard.startNew(match)
+
+    when:
+    scoreboard.updateScore(match.getId(), new Score(-1, 0))
+
+    then:
+    thrown(IllegalArgumentException)
+  }
+
   Team aTeam(String name) {
     return new Team(name)
   }
