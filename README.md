@@ -35,3 +35,21 @@ The summary would provide with the following information:
 ## Tests
 See `src/test` for executable specification.  
 run `./gradlew test`
+
+## Assumptions
+
+### Business Assumptions
+
+- Scores can only be increased, not decreased during a match
+- Multiple matches with the same teams can be played simultaneously
+- Only positive scores are allowed
+- Updating the score to smaller values is not possible
+- Match can be finished at any time regardless of the score
+- Multiple matches can be started at the same time, which can give unpredictable sorting in scoreboard summary
+
+### Technical Assumptions
+
+- System is not thread-safe and doesn't support concurrent operations
+- Generic exceptions are thrown for validation errors instead of specific business exceptions
+- Match IDs are generated using UUID to ensure uniqueness
+- In-memory storage is used for simplicity
